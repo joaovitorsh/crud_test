@@ -8,6 +8,6 @@ def test_user_create() -> None:
 
     assert User.objects.count() == 1
     user = User.objects.first()
-    assert user.username == "john" # type: ignore[union-attr]
+    assert user.username == "john"  # type: ignore[union-attr]
     assert user.is_active is True  # type: ignore[union-attr]
     assert user.is_staff is False  # type: ignore[union-attr]

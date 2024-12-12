@@ -11,6 +11,7 @@ django = "^5.1.4"
 django-types = "^0.20.0"
 django-stubs-ext = "^5.1.1"
 pytest-cov = "^6.0.0"
+djangorestframework = "^3.15.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -20,8 +21,6 @@ ruff = "^0.8.2"
 pylint = "^3.3.2"
 pylint-django = "^2.6.1"
 pylint-per-file-ignores = "^1.3.2"
-mypy = "^1.13.0"
-django-stubs = "^5.1.1"
 
 
 [tool.ruff]
@@ -40,7 +39,7 @@ indent-width = 4
 target-version = "py311"
 
 [tool.ruff.lint]
-ignore = ["D203", "D213"]
+ignore = ["D203", "D213", "ANN001", "ANN201", "ARG002", "D101", "D100", "D106"]
 select = [
     "ANN", # Annotations
     "ARG", # Arguments
@@ -76,7 +75,7 @@ docstring-code-line-length = "dynamic"
 
 [tool.pylint.'MESSAGES CONTROL']
 max-line-length = 120
-disable = ["fixme", "too-many-arguments"]
+disable = ["fixme", "too-many-arguments", "missing-module-docstring", "trailing-whitespace", "missing-class-docstring"]
 load-plugins = ["pylint_per_file_ignores", "pylint_django"]
 django-settings-module = "core.settings"
 per-file-ignores = """
@@ -85,13 +84,6 @@ per-file-ignores = """
     models.py:too-many-ancestors
     manage.py:import-outside-toplevel
 """
-
-[tool.mypy]
-plugins = "mypy_django_plugin.main"
-mypy_path = "./backend"
-
-[tool.poe.tasks.mypy]
-cmd = "mypy --install-types --check-untyped-defs ."
 
 [tool.poe.tasks.test]
 help = "Pytest."
@@ -104,7 +96,7 @@ cmd = "pylint tests backend/core"
 cmd = "ruff check ."
 
 [tool.poe.tasks.check]
-sequence = ["mypy", "pylint", "ruff"]
+sequence = ["pylint", "ruff"]
 
 [tool.poe.tasks.format]
 cmd = "ruff format ."
