@@ -10,12 +10,3 @@ repos:
         types: [python]
         entry: poetry
         args: ["run", "ruff", "check"]
-
-      - id: pylint
-        name: pylint
-        language: system
-        files: "^(?:backend|tests)/"
-        exclude: "migrations"
-        types: [python]
-        entry: poetry
-        args: ["run", "pylint", "-sn"]

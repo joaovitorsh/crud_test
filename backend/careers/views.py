@@ -19,7 +19,7 @@ class CareersViewSet(ViewSet):
 
     def list(self, request):
         """Listar todos os posts com paginação."""
-        queryset = Post.objects.all()
+        queryset = Post.objects.all().order_by("-created_datetime")
         paginator = CareersPagination()
         paginated_queryset = paginator.paginate_queryset(queryset, request)
         serializer = CareersSerializer(paginated_queryset, many=True)
